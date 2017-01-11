@@ -1,0 +1,15 @@
+{
+  "name": "twitter-pizza-bot",
+  "version": "1.0.0",
+  "description": "a bot that love pizza",
+  "main": "bot.js",
+  "dependencies": {
+    "dotenv": "^4.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nick kasten",
+  "license": "ISC"
+}
