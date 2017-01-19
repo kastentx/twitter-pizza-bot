@@ -5,7 +5,7 @@
   "main": "bot.js",
   "dependencies": {
     "dotenv": "^4.0.0",
-    "twit": "^2.2.5"
+    "twitter": "^1.7.0"
   },
   "devDependencies": {},
   "scripts": {
