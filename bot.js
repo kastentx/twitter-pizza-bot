@@ -9,6 +9,8 @@ var secret = {
   access_token_secret:  process.env.ACCESS_TOKEN_SECRET
 }
 var Twitter = new TwitterPackage(secret)
+var fiveMins  = ((1000 * 60) * 5)
+var cachedTweet = ''
 
 /* TEST TWEET.. UNCOMMENT THIS TO POST WHEN BOT IS RUN
  *
@@ -26,7 +28,7 @@ Twitter.stream('statuses/filter', {track: '#pizza'}, function(stream) {
     var hashtags = tweet.entities.hashtags.map(function(entry) {
       return entry.text
     })
-    console.log('Pizza:' + hashtags)
+    console.log('Pizza Tags:' + hashtags)
   })
   stream.on('error', function(error) {
     console.log(error)
@@ -54,3 +56,13 @@ Twitter.stream('statuses/filter', {track: '#PizzaAlien'}, function(stream) {
     console.log(error)
   })
 })
+
+setInterval(function() {
+  Twitter.get('search/tweets', {q: 'pizza'}, function(error, tweets, response) {
+    var foundTweet = tweets.statuses[0].text
+    if (foundTweet != cachedTweet) {
+      console.log('Newest Search Result: ' + foundTweet)
+      cachedTweet = foundTweet
+    }
+  })
+}, fiveMins)
