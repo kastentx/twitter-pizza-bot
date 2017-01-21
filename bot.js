@@ -26,8 +26,30 @@ Twitter.stream('statuses/filter', {track: '#pizza'}, function(stream) {
     var hashtags = tweet.entities.hashtags.map(function(entry) {
       return entry.text
     })
-    console.log(hashtags)
+    console.log('Pizza:' + hashtags)
   })
+  stream.on('error', function(error) {
+    console.log(error)
+  })
+})
+
+Twitter.stream('statuses/filter', {track: '#PizzaAlien'}, function(stream) {
+  stream.on('data', function(tweet) {
+    var mentionUser = '@' + tweet.user.screen_name
+    var mentionStrings = [
+      'Hey ' + mentionUser + '... You got some pizza for THIS alien??', 
+      'I\'d like to learn more about pizza here on Earth. Can you teach me ' + mentionUser + '?',
+      'One thing is for sure. 2017 is the year the Galactic Pizza Prophecy will be fulfilled. Mark my words ' + mentionUser]
+    var randomMsg = mentionStrings[Math.floor(Math.random() * mentionStrings.length)]
+    
+    Twitter.post('statuses/update', {status: randomMsg})
+      .then(function(tweet) {
+        console.log(tweet)
+      })
+      .catch(function(error) {
+        throw error
+      })
+    })
   stream.on('error', function(error) {
     console.log(error)
   })
